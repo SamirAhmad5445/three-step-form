@@ -275,5 +275,24 @@ input {
         transform: rotate(-45deg);
       }
     }
+    &:where(.icon-locke) {
+      position: relative;
+      width: size(4);
+      aspect-ratio: 1;
+      background-color: accent(1);
+      border-radius: size(1);
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(0.75 * size(2));
+        aspect-ratio: 1;
+        border: calc(0.75 * size(1)) solid accent(1);
+        border-radius: 50%;
+      }
+    }
   }
 }
