@@ -209,7 +209,7 @@ input {
   position: relative;
   display: grid;
   place-items: center;
-  width: size(8);
+  width: calc(size(8) + size(1));
   aspect-ratio: 1;
   border: none;
   border-bottom-right-radius: size(3);
@@ -275,6 +275,7 @@ input {
         transform: rotate(-45deg);
       }
     }
+
     &:where(.icon-locke) {
       position: relative;
       width: size(4);

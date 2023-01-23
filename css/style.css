@@ -154,7 +154,7 @@ input {
   position: relative;
   display: grid;
   place-items: center;
-  width: 3rem;
+  width: 3.25rem;
   aspect-ratio: 1;
   border: none;
   border-bottom-right-radius: 0.75rem;
