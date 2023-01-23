@@ -1,0 +1,213 @@
+:root {
+  --primary-1: hsl(223deg, 50%, 75%);
+  --primary-2: hsl(193deg, 75%, 82%);
+  --primary-3: hsl(210deg, 100%, 60%);
+  --primary-4: hsl(222deg, 43%, 9%);
+  --neutral-1: hsl(196deg, 100%, 96%);
+  --neutral-2: hsl(46deg, 100%, 59%);
+  --neutral-3: hsl(0deg, 0%, 5%);
+  --accent-1: hsl(297deg, 71%, 95%);
+  --accent-2: hsl(330deg, 97%, 48%);
+  --accent-3: hsl(315deg, 97%, 26%);
+  --short: 250ms;
+  --normal: 350ms;
+  --long: 450ms;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-image: linear-gradient(135deg, var(--primary-3), var(--primary-2), var(--primary-1));
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  color: var(--neutral-3);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.form {
+  width: 21.875rem;
+  height: 7.5rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border-radius: 0.75rem;
+  padding-inline: 0.5rem;
+  overflow: hidden;
+}
+
+input {
+  outline: none;
+}
+
+.label {
+  background-color: var(--neutral-1);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  position: relative;
+  z-index: 999;
+}
+.label h2 {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.label p {
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.steps {
+  position: relative;
+  transform: perspective(18.75rem);
+}
+
+.step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: all var(--normal);
+  z-index: 3;
+}
+.step:is(.completed) {
+  transform: translateY(-3.45rem);
+}
+.step:nth-child(2) {
+  transform: translateY(0.25rem) scale(0.95);
+  z-index: 2;
+}
+.step:nth-child(3) {
+  transform: translateY(0.5rem) scale(0.9);
+  z-index: 1;
+}
+
+.input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-bottom-left-radius: 0.75rem;
+  font-size: 500;
+  box-shadow: 0 0.75rem 1.5rem -1rem var(--accent-3);
+}
+.input::-moz-placeholder {
+  text-transform: capitalize;
+  color: var(--accent-3);
+}
+.input:-ms-input-placeholder {
+  text-transform: capitalize;
+  color: var(--accent-3);
+}
+.input::placeholder {
+  text-transform: capitalize;
+  color: var(--accent-3);
+}
+.input:where(:valid:not(:-moz-placeholder-shown)) + .btn {
+  pointer-events: initial;
+}
+.input:where(:valid:not(:-ms-input-placeholder)) + .btn {
+  pointer-events: initial;
+}
+.input:where(:valid:not(:placeholder-shown)) + .btn {
+  pointer-events: initial;
+}
+.input:where(:valid:not(:-moz-placeholder-shown)) + .btn span:where(:first-child) {
+  transform: translateY(-3rem);
+}
+.input:where(:valid:not(:-ms-input-placeholder)) + .btn span:where(:first-child) {
+  transform: translateY(-3rem);
+}
+.input:where(:valid:not(:placeholder-shown)) + .btn span:where(:first-child) {
+  transform: translateY(-3rem);
+}
+.input:where(:valid:not(:-moz-placeholder-shown)) + .btn span:where(:nth-child(2)) {
+  transform: translateY(0);
+}
+.input:where(:valid:not(:-ms-input-placeholder)) + .btn span:where(:nth-child(2)) {
+  transform: translateY(0);
+}
+.input:where(:valid:not(:placeholder-shown)) + .btn span:where(:nth-child(2)) {
+  transform: translateY(0);
+}
+.step:where(.completed) .input {
+  box-shadow: none;
+}
+
+.btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  aspect-ratio: 1;
+  border: none;
+  border-bottom-right-radius: 0.75rem;
+  background-color: var(--accent-2);
+  color: var(--neutral-1);
+  overflow: hidden;
+  pointer-events: none;
+  cursor: pointer;
+}
+.btn span {
+  position: absolute;
+  transition: all var(--short);
+}
+.btn span:where(:nth-child(1)) {
+  transform: translateY(0);
+}
+.btn span:where(:nth-child(2)) {
+  transform: translateY(3rem);
+}
+.btn span:where(.icon-envlop) {
+  width: 1.5rem;
+  aspect-ratio: 4/3;
+  border: 0.125rem solid var(--accent-1);
+  border-radius: 0.25rem;
+  isolation: isolate;
+  overflow: hidden;
+}
+.btn span:where(.icon-envlop)::before {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  aspect-ratio: 1;
+  border: inherit;
+  border-radius: inherit;
+  top: -20%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.btn span:where(.icon-arrow) {
+  isolation: isolate;
+  width: 0.25rem;
+  height: 1rem;
+  background-color: var(--accent-1);
+  border-radius: 3rem;
+}
+.btn span:where(.icon-arrow)::before, .btn span:where(.icon-arrow)::after {
+  content: "";
+  position: absolute;
+  inset: 0.125rem 0 20% 0;
+  border-radius: inherit;
+  background-color: inherit;
+  transform-origin: top center;
+}
+.btn span:where(.icon-arrow)::before {
+  transform: rotate(45deg);
+}
+.btn span:where(.icon-arrow)::after {
+  transform: rotate(-45deg);
+}/*# sourceMappingURL=style.css.map */

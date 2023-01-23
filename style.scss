@@ -1,0 +1,275 @@
+@use "sass:math";
+@use "sass:string";
+
+// valiables and maps
+$colors: (
+  primary: (
+    1: hsl(223, 50%, 75%),
+    2: hsl(193, 75%, 82%),
+    3: hsl(210, 100%, 60%),
+    4: hsl(222, 43%, 9%),
+  ),
+  neutral: (
+    1: hsl(196, 100%, 96%),
+    2: hsl(46, 100%, 59%),
+    3: hsl(0, 0%, 5%),
+  ),
+  accent: (
+    1: hsl(297, 71%, 95%),
+    2: hsl(330, 97%, 48%),
+    3: hsl(315, 97%, 26%),
+  ),
+);
+
+$base-size: 1rem;
+
+$sizes: (
+  1: $base-size * 0.25,
+  2: $base-size * 0.5,
+  3: $base-size * 0.75,
+  4: $base-size * 1,
+  5: $base-size * 1.5,
+  6: $base-size * 2,
+  7: $base-size * 2.5,
+  8: $base-size * 3,
+);
+
+$transitions: (
+  short: 250ms,
+  normal: 350ms,
+  long: 450ms,
+);
+
+// mixins and functions
+// function to convert from px => rem (or => em)
+@function convert($value, $unit: rem) {
+  @if type-of($value) == number {
+    @return if(
+      math.is-unitless($value),
+      #{calc($value / 16)} + $unit,
+      string.slice(#{calc($value / 16)}, 1, -3) + $unit
+    );
+  } @else {
+    @error 'the value #{$value} isn\'t a number';
+  }
+}
+
+// function to return the $size value from $sizes map
+@function size($key) {
+  @return map-get($sizes, $key);
+}
+
+// those are some function to return the colors as css variables
+@function primary($clr) {
+  @return var(--primary-#{$clr});
+}
+@function neutral($clr) {
+  @return var(--neutral-#{$clr});
+}
+@function accent($clr) {
+  @return var(--accent-#{$clr});
+}
+
+// style goes here
+:root {
+  @each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      --#{$color}-#{$shade}: #{$value};
+    }
+  }
+  @each $transition, $value in $transitions {
+    --#{$transition}: #{$value};
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  // outline: 1px solid limegreen;
+}
+
+html {
+  height: 100%;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-image: linear-gradient(135deg, primary(3), primary(2), primary(1));
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: neutral(3);
+}
+
+button,
+input {
+  font: inherit;
+}
+.form {
+  // outline-color: hotpink;
+
+  width: convert(350px);
+  height: convert(120px);
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border-radius: size(3);
+  padding-inline: size(2);
+  overflow: hidden;
+}
+
+input {
+  outline: none;
+}
+
+.label {
+  background-color: neutral(1);
+  padding: size(2) size(5);
+  border-radius: size(3) size(3) 0 0;
+  position: relative;
+  z-index: 999;
+
+  h2 {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-weight: 500;
+    opacity: 0.5;
+  }
+}
+
+.steps {
+  position: relative;
+  transform: perspective(convert(300px));
+  // z-index: -1;
+}
+
+.step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: all var(--normal);
+  z-index: 3;
+
+  &:is(.completed) {
+    transform: translateY(-1.15 * size(8));
+  }
+
+  &:nth-child(2) {
+    transform: translateY(size(1)) scale(0.95);
+    z-index: 2;
+  }
+
+  &:nth-child(3) {
+    transform: translateY(size(2)) scale(0.9);
+    z-index: 1;
+  }
+}
+
+.input {
+  flex: 1;
+  padding: size(4) size(5);
+  border: none;
+  border-bottom-left-radius: size(3);
+  font-size: 500;
+  box-shadow: 0 size(3) size(5) calc(-1 * size(4)) accent(3);
+
+  &::placeholder {
+    text-transform: capitalize;
+    color: accent(3);
+  }
+
+  &:where(:valid:not(:placeholder-shown)) + .btn {
+    pointer-events: initial;
+    span:where(:first-child) {
+      transform: translateY(-1 * size(8));
+    }
+    span:where(:nth-child(2)) {
+      transform: translateY(0);
+    }
+  }
+
+  .step:where(.completed) & {
+    box-shadow: none;
+  }
+}
+
+.btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: size(8);
+  aspect-ratio: 1;
+  border: none;
+  border-bottom-right-radius: size(3);
+  background-color: accent(2);
+  color: neutral(1);
+  overflow: hidden;
+  pointer-events: none;
+  cursor: pointer;
+
+  span {
+    position: absolute;
+    transition: all var(--short);
+
+    &:where(:nth-child(1)) {
+      transform: translateY(0);
+    }
+    &:where(:nth-child(2)) {
+      transform: translateY(size(8));
+    }
+
+    &:where(.icon-envlop) {
+      width: size(5);
+      aspect-ratio: 4/3;
+      border: calc(0.5 * size(1)) solid accent(1);
+      border-radius: size(1);
+      isolation: isolate;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: size(4);
+        aspect-ratio: 1;
+        border: inherit;
+        border-radius: inherit;
+        top: -20%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+
+    &:where(.icon-arrow) {
+      isolation: isolate;
+      width: size(1);
+      height: size(4);
+      background-color: accent(1);
+      border-radius: size(8);
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        inset: calc(0.5 * size(1)) 0 20% 0;
+        border-radius: inherit;
+        background-color: inherit;
+        transform-origin: top center;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
