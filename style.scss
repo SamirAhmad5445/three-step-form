@@ -158,10 +158,6 @@ input {
   transition: all var(--normal);
   z-index: 3;
 
-  &:is(.completed) {
-    transform: translateY(-1.15 * size(8));
-  }
-
   &:nth-child(2) {
     transform: translateY(size(1)) scale(0.95);
     z-index: 2;
@@ -170,6 +166,14 @@ input {
   &:nth-child(3) {
     transform: translateY(size(2)) scale(0.9);
     z-index: 1;
+  }
+
+  &:is(.active) {
+    transform: translateY(0);
+  }
+
+  &:is(.completed) {
+    transform: translateY(-1.15 * size(8));
   }
 }
 

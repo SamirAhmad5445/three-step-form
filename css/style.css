@@ -84,9 +84,6 @@ input {
   transition: all var(--normal);
   z-index: 3;
 }
-.step:is(.completed) {
-  transform: translateY(-3.45rem);
-}
 .step:nth-child(2) {
   transform: translateY(0.25rem) scale(0.95);
   z-index: 2;
@@ -94,6 +91,12 @@ input {
 .step:nth-child(3) {
   transform: translateY(0.5rem) scale(0.9);
   z-index: 1;
+}
+.step:is(.active) {
+  transform: translateY(0);
+}
+.step:is(.completed) {
+  transform: translateY(-3.45rem);
 }
 
 .input {

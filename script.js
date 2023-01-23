@@ -6,11 +6,11 @@ buttons.forEach((button) => {
     document
       .querySelector(`.step-${button.getAttribute("data-index")}`)
       .classList.add("completed");
-    //     document
-    //       .querySelector(`.step-${button.getAttribute("data-index")}`)
-    //       .classList.remove("active");
-    //     document
-    //       .querySelector(`.step-${button.getAttribute("data-index") + 1}`)
-    //       .classList.add("active");
+    document
+      .querySelector(`.step-${button.getAttribute("data-index")}`)
+      .classList.remove("active");
+    document
+      .querySelector(`.step-${button.getAttribute("data-index")} + *`)
+      .classList.add("active");
   });
 });
