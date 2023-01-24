@@ -46,7 +46,6 @@ input {
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-radius: 0.75rem;
-  padding-inline: 0.5rem;
   overflow: hidden;
 }
 
@@ -59,6 +58,7 @@ input {
   padding: 0.5rem 1.5rem;
   border-radius: 0.75rem 0.75rem 0 0;
   position: relative;
+  transition: var(--long);
   z-index: 999;
 }
 .label h2 {
@@ -66,8 +66,33 @@ input {
   text-transform: uppercase;
 }
 .label p {
+  position: relative;
   font-weight: 500;
   opacity: 0.5;
+}
+.label p:where(.complete-flag) {
+  color: var(--primary-4);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-block: 2rem;
+  opacity: 1;
+}
+.label p:where(.complete-flag)::before, .label p:where(.complete-flag)::after {
+  content: "";
+  position: absolute;
+  width: 1.25rem;
+  aspect-ratio: 1;
+  top: 50%;
+  right: -1.5rem;
+  transform: translateY(-50%);
+  background-color: var(--primary-3);
+  border-radius: 50%;
+}
+.label p:where(.complete-flag)::after {
+  background-color: var(--neutral-1);
+  -webkit-clip-path: polygon(31% 45%, 20% 56%, 39% 84%, 83% 32%, 75% 23%, 42% 64%);
+          clip-path: polygon(31% 45%, 20% 56%, 39% 84%, 83% 32%, 75% 23%, 42% 64%);
 }
 
 .steps {
@@ -76,6 +101,7 @@ input {
 }
 
 .step {
+  --btn-color: var(--accent-2);
   position: absolute;
   inset: 0;
   display: flex;
@@ -85,10 +111,12 @@ input {
   z-index: 3;
 }
 .step:nth-child(2) {
+  --btn-color: var(--primary-3);
   transform: translateY(0.25rem) scale(0.95);
   z-index: 2;
 }
 .step:nth-child(3) {
+  --btn-color: var(--neutral-2);
   transform: translateY(0.5rem) scale(0.9);
   z-index: 1;
 }
@@ -101,11 +129,12 @@ input {
 
 .input {
   flex: 1;
-  padding: 1rem 1.5rem;
+  padding: 1.03125rem 1.5rem;
   border: none;
   border-bottom-left-radius: 0.75rem;
   font-size: 500;
-  box-shadow: 0 0.75rem 1.5rem -1rem var(--accent-3);
+  box-shadow: 0 0.75rem 1.5rem -1rem var(--btn-color);
+  caret-color: var(--btn-color);
 }
 .input::-moz-placeholder {
   text-transform: capitalize;
@@ -158,8 +187,8 @@ input {
   aspect-ratio: 1;
   border: none;
   border-bottom-right-radius: 0.75rem;
-  background-color: var(--accent-2);
-  color: var(--neutral-1);
+  background-color: var(--btn-color);
+  color: var(--primary-4);
   overflow: hidden;
   pointer-events: none;
   cursor: pointer;

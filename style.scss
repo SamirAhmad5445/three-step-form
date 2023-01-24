@@ -117,7 +117,7 @@ input {
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-radius: size(3);
-  padding-inline: size(2);
+  // padding-inline: size(2);
   overflow: hidden;
 }
 
@@ -130,6 +130,7 @@ input {
   padding: size(2) size(5);
   border-radius: size(3) size(3) 0 0;
   position: relative;
+  transition: var(--long);
   z-index: 999;
 
   h2 {
@@ -138,8 +139,41 @@ input {
   }
 
   p {
+    position: relative;
     font-weight: 500;
     opacity: 0.5;
+
+    &:where(.complete-flag) {
+      color: primary(4);
+      width: fit-content;
+      margin-block: size(6);
+      opacity: 1;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: calc(size(4) + size(1));
+        aspect-ratio: 1;
+        top: 50%;
+        right: calc(-1 * size(5));
+        transform: translateY(-50%);
+        background-color: primary(3);
+        border-radius: 50%;
+      }
+
+      &::after {
+        background-color: neutral(1);
+        clip-path: polygon(
+          31% 45%,
+          20% 56%,
+          39% 84%,
+          83% 32%,
+          75% 23%,
+          42% 64%
+        );
+      }
+    }
   }
 }
 
@@ -150,6 +184,7 @@ input {
 }
 
 .step {
+  --btn-color: #{accent(2)};
   position: absolute;
   inset: 0;
   display: flex;
@@ -159,11 +194,13 @@ input {
   z-index: 3;
 
   &:nth-child(2) {
+    --btn-color: #{primary(3)};
     transform: translateY(size(1)) scale(0.95);
     z-index: 2;
   }
 
   &:nth-child(3) {
+    --btn-color: #{neutral(2)};
     transform: translateY(size(2)) scale(0.9);
     z-index: 1;
   }
@@ -179,11 +216,12 @@ input {
 
 .input {
   flex: 1;
-  padding: size(4) size(5);
+  padding: calc(size(4) + size(2) / 16) size(5);
   border: none;
   border-bottom-left-radius: size(3);
   font-size: 500;
-  box-shadow: 0 size(3) size(5) calc(-1 * size(4)) accent(3);
+  box-shadow: 0 size(3) size(5) calc(-1 * size(4)) var(--btn-color);
+  caret-color: var(--btn-color);
 
   &::placeholder {
     text-transform: capitalize;
@@ -213,8 +251,8 @@ input {
   aspect-ratio: 1;
   border: none;
   border-bottom-right-radius: size(3);
-  background-color: accent(2);
-  color: neutral(1);
+  background-color: var(--btn-color);
+  color: primary(4);
   overflow: hidden;
   pointer-events: none;
   cursor: pointer;
