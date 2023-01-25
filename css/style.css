@@ -1,6 +1,6 @@
 :root {
-  --primary-1: hsl(223deg, 50%, 75%);
-  --primary-2: hsl(193deg, 75%, 82%);
+  --primary-1: hsl(193deg, 75%, 82%);
+  --primary-2: hsl(223deg, 50%, 75%);
   --primary-3: hsl(210deg, 100%, 60%);
   --primary-4: hsl(222deg, 43%, 9%);
   --neutral-1: hsl(196deg, 100%, 96%);
@@ -8,7 +8,7 @@
   --neutral-3: hsl(0deg, 0%, 5%);
   --accent-1: hsl(297deg, 71%, 95%);
   --accent-2: hsl(330deg, 97%, 48%);
-  --accent-3: hsl(315deg, 97%, 26%);
+  --accent-3: hsl(315deg, 97%, 12%);
   --short: 250ms;
   --normal: 350ms;
   --long: 450ms;
@@ -71,7 +71,7 @@ input {
   opacity: 0.5;
 }
 .label p:where(.complete-flag) {
-  color: var(--primary-4);
+  color: var(--accent-3);
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -86,11 +86,11 @@ input {
   top: 50%;
   right: -1.5rem;
   transform: translateY(-50%);
-  background-color: var(--primary-3);
+  background-color: var(--neutral-2);
   border-radius: 50%;
 }
 .label p:where(.complete-flag)::after {
-  background-color: var(--neutral-1);
+  background-color: var(--accent-3);
   -webkit-clip-path: polygon(31% 45%, 20% 56%, 39% 84%, 83% 32%, 75% 23%, 42% 64%);
           clip-path: polygon(31% 45%, 20% 56%, 39% 84%, 83% 32%, 75% 23%, 42% 64%);
 }
@@ -130,23 +130,27 @@ input {
 .input {
   flex: 1;
   padding: 1.03125rem 1.5rem;
+  color: var(--primary-4);
   border: none;
   border-bottom-left-radius: 0.75rem;
   font-size: 500;
-  box-shadow: 0 0.75rem 1.5rem -1rem var(--btn-color);
+  box-shadow: 0.75rem 0.75rem 1.5rem -1rem var(--btn-color);
   caret-color: var(--btn-color);
 }
 .input::-moz-placeholder {
   text-transform: capitalize;
-  color: var(--accent-3);
+  color: var(--btn-color);
+  opacity: 0.6;
 }
 .input:-ms-input-placeholder {
   text-transform: capitalize;
-  color: var(--accent-3);
+  color: var(--btn-color);
+  opacity: 0.6;
 }
 .input::placeholder {
   text-transform: capitalize;
-  color: var(--accent-3);
+  color: var(--btn-color);
+  opacity: 0.6;
 }
 .input:where(:valid:not(:-moz-placeholder-shown)) + .btn {
   pointer-events: initial;

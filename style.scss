@@ -4,8 +4,8 @@
 // valiables and maps
 $colors: (
   primary: (
-    1: hsl(223, 50%, 75%),
-    2: hsl(193, 75%, 82%),
+    1: hsl(193, 75%, 82%),
+    2: hsl(223, 50%, 75%),
     3: hsl(210, 100%, 60%),
     4: hsl(222, 43%, 9%),
   ),
@@ -17,7 +17,7 @@ $colors: (
   accent: (
     1: hsl(297, 71%, 95%),
     2: hsl(330, 97%, 48%),
-    3: hsl(315, 97%, 26%),
+    3: hsl(315, 97%, 12%),
   ),
 );
 
@@ -86,7 +86,6 @@ $transitions: (
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-  // outline: 1px solid limegreen;
 }
 
 html {
@@ -110,14 +109,11 @@ input {
   font: inherit;
 }
 .form {
-  // outline-color: hotpink;
-
   width: convert(350px);
   height: convert(120px);
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-radius: size(3);
-  // padding-inline: size(2);
   overflow: hidden;
 }
 
@@ -144,7 +140,7 @@ input {
     opacity: 0.5;
 
     &:where(.complete-flag) {
-      color: primary(4);
+      color: accent(3);
       width: fit-content;
       margin-block: size(6);
       opacity: 1;
@@ -158,12 +154,12 @@ input {
         top: 50%;
         right: calc(-1 * size(5));
         transform: translateY(-50%);
-        background-color: primary(3);
+        background-color: neutral(2);
         border-radius: 50%;
       }
 
       &::after {
-        background-color: neutral(1);
+        background-color: accent(3);
         clip-path: polygon(
           31% 45%,
           20% 56%,
@@ -217,15 +213,17 @@ input {
 .input {
   flex: 1;
   padding: calc(size(4) + size(2) / 16) size(5);
+  color: primary(4);
   border: none;
   border-bottom-left-radius: size(3);
   font-size: 500;
-  box-shadow: 0 size(3) size(5) calc(-1 * size(4)) var(--btn-color);
+  box-shadow: size(3) size(3) size(5) calc(-1 * size(4)) var(--btn-color);
   caret-color: var(--btn-color);
 
   &::placeholder {
     text-transform: capitalize;
-    color: accent(3);
+    color: var(--btn-color);
+    opacity: 0.6;
   }
 
   &:where(:valid:not(:placeholder-shown)) + .btn {
